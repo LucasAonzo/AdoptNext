@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* Background & Foreground */
+    --background: 260 33% 98%;
+    --foreground: 260 20% 15%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 260 20% 15%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 20% 15%;
+
+    /* Primary - Purple */
+    --primary: 265 89% 66%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft Teal */
+    --secondary: 168 84% 39%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 260 33% 94%;
+    --muted-foreground: 260 10% 40%;
+
+    /* Accent - Warm Amber */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders, Inputs, and Focus Rings */
+    --border: 260 10% 90%;
+    --input: 260 10% 90%;
+    --ring: 265 89% 66%;
+
+    /* Border Radius */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Background & Foreground */
+    --background: 260 25% 10%;
+    --foreground: 260 15% 95%;
+
+    /* Card */
+    --card: 260 25% 12%;
+    --card-foreground: 260 15% 95%;
+
+    /* Popover */
+    --popover: 260 25% 12%;
+    --popover-foreground: 260 15% 95%;
+
+    /* Primary - Purple */
+    --primary: 265 89% 70%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft Teal */
+    --secondary: 168 84% 44%; 
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 260 25% 20%;
+    --muted-foreground: 260 10% 70%;
+
+    /* Accent - Warm Amber */
+    --accent: 38 92% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders, Inputs, and Focus Rings */
+    --border: 260 15% 25%;
+    --input: 260 15% 25%;
+    --ring: 265 89% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl tracking-tight;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl tracking-tight;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  p {
+    @apply leading-relaxed;
+  }
+  a {
+    @apply text-primary hover:text-primary/90 transition-colors;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-adopt-purple-600 text-white hover:bg-adopt-purple-700 transition-all rounded-lg font-medium px-6 py-2.5 shadow-sm hover:shadow-purple focus:ring-2 focus:ring-adopt-purple-300 focus:outline-none;
+  }
+  .btn-secondary {
+    @apply bg-adopt-teal-500 text-white hover:bg-adopt-teal-600 transition-all rounded-lg font-medium px-6 py-2.5 shadow-sm hover:shadow-sm;
+  }
+  .btn-accent {
+    @apply bg-adopt-amber-500 text-white hover:bg-adopt-amber-600 transition-all rounded-lg font-medium px-6 py-2.5 shadow-sm hover:shadow-sm;
+  }
+  .btn-outline {
+    @apply border border-adopt-purple-200 bg-white text-adopt-purple-600 hover:bg-adopt-purple-50 hover:border-adopt-purple-300 transition-all rounded-lg font-medium px-6 py-2.5;
+  }
+  .btn-pill {
+    @apply rounded-full !important;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-card-hover transform hover:-translate-y-1;
+  }
+  .tag {
+    @apply inline-flex items-center rounded-full bg-adopt-purple-100 px-2.5 py-0.5 text-xs font-medium text-adopt-purple-800;
+  }
+  .badge-primary {
+    @apply bg-adopt-purple-100 text-adopt-purple-800 border-0;
+  }
+  .badge-secondary {
+    @apply bg-adopt-teal-100 text-adopt-teal-800 border-0;
+  }
+  .badge-accent {
+    @apply bg-adopt-amber-100 text-adopt-amber-800 border-0;
+  }
+}
+

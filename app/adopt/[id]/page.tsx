@@ -10,7 +10,8 @@ import { Metadata } from "next";
 export const revalidate = 3600; // Revalidate every hour
 
 // Dynamically generate metadata for SEO
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params: paramsInput }: { params: { id: string } }): Promise<Metadata> {
+  const params = await paramsInput;
   const pet = await getPet(params.id);
   
   if (!pet) {
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 async function getPet(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const { data: pet, error } = await supabase
     .from("pets")
@@ -49,7 +50,8 @@ async function getPet(id: string) {
   return pet;
 }
 
-export default async function AdoptionPage({ params }: { params: { id: string } }) {
+export default async function AdoptionPage({ params: paramsInput }: { params: { id: string } }) {
+  const params = await paramsInput;
   const pet = await getPet(params.id);
   
   if (!pet) {

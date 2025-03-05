@@ -18,10 +18,11 @@ export interface PetWithCategory extends Omit<Pet, 'pet_categories'> {
 }
 
 // Function to get pets with filtering
-async function getPets(searchParams: { [key: string]: string }) {
+async function getPets(searchParamsInput: { [key: string]: string }) {
   'use server';
   
-  const supabase = createClient();
+  const supabase = await createClient();
+  const searchParams = await searchParamsInput;
   
   // Start with the base query
   let query = supabase
@@ -32,7 +33,8 @@ async function getPets(searchParams: { [key: string]: string }) {
     `);
   
   // Apply filters from URL parameters
-  for (const [key, value] of Object.entries(searchParams)) {
+  const entries = Object.entries(searchParams);
+  for (const [key, value] of entries) {
     if (key.startsWith('filter_')) {
       const filterKey = key.replace('filter_', '');
       const values = value.split(',');
@@ -59,7 +61,7 @@ async function getPets(searchParams: { [key: string]: string }) {
   }
   
   // Apply sorting
-  const sortParam = searchParams['sort'] || 'recent';
+  const sortParam = searchParams?.sort || 'recent';
   switch (sortParam) {
     case 'recent':
       query = query.order('created_at', { ascending: false });
@@ -98,7 +100,9 @@ async function getPets(searchParams: { [key: string]: string }) {
 }
 
 // Function to filter pets client-side (for more complex filtering)
-function filterPets(pets: PetWithCategory[], searchParams: { [key: string]: string }) {
+async function filterPets(pets: PetWithCategory[], searchParamsInput: { [key: string]: string }) {
+  const searchParams = await searchParamsInput;
+  
   return pets.filter(pet => {
     // We'll implement additional client-side filtering here if needed
     return true;
@@ -106,15 +110,18 @@ function filterPets(pets: PetWithCategory[], searchParams: { [key: string]: stri
 }
 
 export default async function PetsPage({
-  searchParams,
+  searchParams: searchParamsInput,
 }: {
   searchParams: { [key: string]: string };
 }) {
+  // Make sure searchParams is awaited before use
+  const searchParams = await searchParamsInput;
+  
   // Get pets from database with server-side filtering
   const allPets = await getPets(searchParams);
   
   // Apply any additional client-side filtering
-  const filteredPets = filterPets(allPets, searchParams);
+  const filteredPets = await filterPets(allPets, searchParams);
   
   // Extract unique pet categories for filter options with null safety
   const petCategories = Array.from(

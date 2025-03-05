@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Dynamic route - do not cache
 
 async function getFavorites() {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   // Check if user is authenticated
   const { data: { user } } = await supabase.auth.getUser();

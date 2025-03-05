@@ -28,7 +28,7 @@ const fallbackKnowledgeItems: KnowledgeItem[] = [
 ];
 
 async function getKnowledgeItems(): Promise<KnowledgeItem[]> {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   // Try to fetch from the database if we have a "knowledge_articles" table
   try {

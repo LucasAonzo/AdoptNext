@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Dynamic route - do not cache
 
 async function getPetCategories() {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   // Check if user is authenticated and is admin
   const { data: { user } } = await supabase.auth.getUser();
